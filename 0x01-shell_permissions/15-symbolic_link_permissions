@@ -1,2 +1,2 @@
 #!/bin/bash
-chwon betty _hello -h chgrp holberton -h
+chwon --from -h betty _hello holberton
