@@ -1,2 +1,2 @@
 #!/bin/bash
-chwon --from -h betty _hello holberton
+chwon --from -h betty _hello holberton .
