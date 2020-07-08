@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#listen to localpost 98
+netcat -l localhost 98
