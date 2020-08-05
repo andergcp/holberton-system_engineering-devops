@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# It script installs nginx in my server
+# Nginx listens on port 80
+# A GET returns a page that contains the string "Holberton School"
+
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+sudo echo "Holberton School" > /var/www/html/index.html
