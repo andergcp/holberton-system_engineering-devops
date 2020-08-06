@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# It script installs nginx in my server
+# Nginx listens on port 80
+# A GET returns a page that contains the string "Holberton School"
+# /redirect_me is redirecting to another page
+# The redirection is a “301 Moved Permanently”
+
+apt-get -y update
+apt-get -y install nginx
+echo "Holberton School" > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+sed -i 's/root \/var\/www\/html;/root \/var\/www\/html;\n\trewrite ^\/redirect_me http:\/\/google.com permanent;/' /etc/nginx/sites-available/default
+sed -i 's/root \/var\/www\/html;/root \/var\/www\/html;\n\terror_page 404 \/404.html;/' /etc/nginx/sites-available/default
+service nginx start
