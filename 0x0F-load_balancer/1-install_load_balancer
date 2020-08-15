@@ -9,8 +9,8 @@ echo "
 frontend site_front
         bind *:80
         default_backend site_back
-        backend site_back
-balance roundrobin
+backend site_back
+        balance roundrobin
         server 1521-web-01 34.74.122.27:80 check
         server 1521-web-02 35.243.238.143:80 check" >> /etc/haproxy/haproxy.cfg
 service haproxy start
