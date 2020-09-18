@@ -10,7 +10,8 @@ def recurse(subreddit, hot_list=[], after=''):
     found for the given subreddit, the function returns None
     '''
 
-    b_url = 'http://reddit.com/r/{}/hot.json?after={}'.format(subreddit, after)
+    b_url = 'http://reddit.com/r/{}/hot.json?after={}'.format(subreddit,
+                                                              after)
     headers = {'User-agent': 'whatever'}
 
     response = requests.get(b_url, headers=headers)
