@@ -10,21 +10,22 @@ def recurse(subreddit, hot_list=[], after=''):
     found for the given subreddit, the function returns None
     '''
 
-    b_url = 'http://reddit.com/r/{}/hot.json?after={}'.format(subreddit,
-                                                              after)
-    headers = {'User-agent': 'whatever'}
-
-    response = requests.get(b_url, headers=headers)
-    if res.status_code == 200:
-        top = response.json()
-        key = top['data']['after']
-        parent = top['data']['children']
-
-        for obj in parent:
-            hot_list.append(obj['data']['title'])
-
-        if key is not None:
-            recurse(subreddit, hot_list, key)
-        return hot_list
+    url = 'https://www.reddit.com/r/{}/hot.json'.format(subreddit)
+    headers = {'user-agent': 'Python3/requests_library/1'}
+    redirects = False
+    if len(hot_list) == 0:
+        request_subreddit = requests.get(url, headers=headers,
+                                         allow_redirects=redirects)
     else:
-        return None
+        data = {'after': after}
+        request_subreddit = requests.get(url, headers=headers, params=data,
+                                         allow_redirects=redirects)
+    if request_subreddit.status_code == 200:
+        subreddit_json = request_subreddit.json()
+        for children in subreddit_json['data']['children']:
+            hot_list.append(children)
+        end_value = subreddit_json['data']['after']
+        if end_value is None:
+            return hot_list
+        return recurse(subreddit, hot_list, end_value)
+    return None
